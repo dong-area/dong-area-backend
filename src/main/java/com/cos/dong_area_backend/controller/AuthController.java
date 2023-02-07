@@ -46,7 +46,7 @@ public class AuthController {
         userRepository.save(user);
         return "join succeed!!!";
     }
-    @PostMapping("/authed/username")
+    @GetMapping("/authed/username")
     @ResponseBody
     @Operation(summary = "유저이름 받기")
     public String username(@RequestHeader Map<String, String> headers){
