@@ -1,6 +1,7 @@
 package com.cos.dong_area_backend.service;
 
 import com.cos.dong_area_backend.dto.PostListResponseDto;
+import com.cos.dong_area_backend.dto.PostWriteRequestDto;
 import com.cos.dong_area_backend.entity.Post;
 import com.cos.dong_area_backend.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,13 @@ public class PostService {
         return PostListResponseDto.builder()
                 .postPage(postRepository.findAll(pageRequest))
                 .build();
+    }
+    public void writePost(PostWriteRequestDto writeRequest){
+        Post post = Post.builder()
+                .title(writeRequest.getTitle())
+                .context(writeRequest.getContext())
+                .writer(writeRequest.getWriter())
+                .build();
+        postRepository.save(post);
     }
 }

@@ -21,7 +21,9 @@ public class PostController {
     }
 
     @PostMapping("/write")
-    public String writePost(){
-        return "미완!";
+    @ResponseBody
+    public String writePost(@RequestBody PostWriteRequestDto postWriteRequestDto){
+        postService.writePost(postWriteRequestDto);
+        return "uploading post succeed!";
     }
 }
