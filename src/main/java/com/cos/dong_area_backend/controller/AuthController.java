@@ -1,11 +1,9 @@
 package com.cos.dong_area_backend.controller;
 
 import com.cos.dong_area_backend.config.encoder.PasswordEncoder;
-import com.cos.dong_area_backend.dto.LoginDto;
+import com.cos.dong_area_backend.dto.LoginRequestDto;
 import com.cos.dong_area_backend.entity.User;
 import com.cos.dong_area_backend.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.dialect.SybaseSqlAstTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +20,15 @@ public class AuthController {
 
     @PostMapping("/join")
     @ResponseBody
-    public String join(@RequestBody LoginDto loginDto) {
-        loginDto.setPassword(passwordEncoder.encode(loginDto.getPassword()));
+    public String join(@RequestBody LoginRequestDto loginRequestDto) {
+        loginRequestDto.setPassword(passwordEncoder.encode(loginRequestDto.getPassword()));
         User user = User.builder()
-                .id(loginDto.getId())
-                .password(loginDto.getPassword())
-                .username(loginDto.getUsername())
+                .id(loginRequestDto.getId())
+                .password(loginRequestDto.getPassword())
+                .username(loginRequestDto.getUsername())
                 .roles("ROLE_USER")
-                .clubname(loginDto.getClubname())
-                .stu_id(loginDto.getStu_id())
+                .clubname(loginRequestDto.getClubname())
+                .stu_id(loginRequestDto.getStu_id())
                 .build();
         System.out.println("join: "+user);
         userRepository.save(user);

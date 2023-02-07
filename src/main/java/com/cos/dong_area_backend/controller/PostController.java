@@ -1,13 +1,11 @@
 package com.cos.dong_area_backend.controller;
 
 import com.cos.dong_area_backend.dto.PostListResponseDto;
+import com.cos.dong_area_backend.dto.PostWriteRequestDto;
 import com.cos.dong_area_backend.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/post")
@@ -20,5 +18,10 @@ public class PostController {
     @ResponseBody
     public PostListResponseDto pageList(@RequestParam(name = "name",defaultValue = "0")int index){
         return postService.boardList(index);
+    }
+
+    @PostMapping("/write")
+    public String writePost(){
+        return "미완!";
     }
 }
