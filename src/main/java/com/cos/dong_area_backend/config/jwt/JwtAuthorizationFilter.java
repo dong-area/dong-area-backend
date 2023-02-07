@@ -32,12 +32,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         String jwtHeader = request.getHeader(JwtProperties.HEADER_STRING);
-        System.out.println("jwtHeader: "+jwtHeader);
+        System.out.println("jwtHeader: " + jwtHeader);
+        System.out.println("Uri: " + request.getRequestURI());
 
-        //Header 존재여부 확인
-        if(jwtHeader==null || !jwtHeader.startsWith(JwtProperties.TOKEN_PREFIX)){
-            chain.doFilter(request,response);
-            return;
+        if (request.getRequestURI().contains("authed")) {
+            //Header 존재여부 확인
+            if (jwtHeader == null || !jwtHeader.startsWith(JwtProperties.TOKEN_PREFIX)) {
+                chain.doFilter(request, response);
+                return;
+            }
         }
 
         String jwtToken = request.getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX,"");
