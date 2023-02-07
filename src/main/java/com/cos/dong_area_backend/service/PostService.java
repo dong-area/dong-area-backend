@@ -4,29 +4,9 @@ import com.cos.dong_area_backend.dto.PostListResponseDto;
 import com.cos.dong_area_backend.dto.PostWriteRequestDto;
 import com.cos.dong_area_backend.entity.Post;
 import com.cos.dong_area_backend.repository.PostRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class PostService {
-
-    private final PostRepository postRepository;
-    public PostListResponseDto boardList(int pageIndex) {
-        PageRequest pageRequest = PageRequest.of(pageIndex,6);
-        return PostListResponseDto.builder()
-                .postPage(postRepository.findAll(pageRequest))
-                .build();
-    }
-    public void writePost(PostWriteRequestDto writeRequest){
-        Post post = Post.builder()
-                .title(writeRequest.getTitle())
-                .context(writeRequest.getContext())
-                .writer(writeRequest.getWriter())
-                .build();
-        postRepository.save(post);
-    }
+public interface PostService {
+    public PostListResponseDto clubBoardList(int pageIndex);
+    public void writeClubPost(PostWriteRequestDto writeRequest);
 }

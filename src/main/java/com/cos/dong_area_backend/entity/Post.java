@@ -10,10 +10,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+
 @Entity
-@Data
 @NoArgsConstructor
-public class Post extends BaseTimeEntity{
+public abstract class Post extends BaseTimeEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
