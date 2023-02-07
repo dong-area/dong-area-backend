@@ -15,4 +15,5 @@ public class PostWriteRequestDto {
     private String title;
     private String context;
     private String writer;
+    private String type;
 }

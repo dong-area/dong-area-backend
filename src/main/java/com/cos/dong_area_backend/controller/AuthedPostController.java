@@ -2,6 +2,9 @@ package com.cos.dong_area_backend.controller;
 
 import com.cos.dong_area_backend.dto.PostListResponseDto;
 import com.cos.dong_area_backend.dto.PostWriteRequestDto;
+import com.cos.dong_area_backend.entity.Post;
+import com.cos.dong_area_backend.repository.PostRepository;
+import com.cos.dong_area_backend.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,18 +13,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/authed/post")
 public class AuthedPostController {
 
-    private final AuthedPostService postService;
+    private final PostService postService;
 
     @GetMapping("/list")
     @ResponseBody
     public PostListResponseDto pageList(@RequestParam(name = "name",defaultValue = "0")int index){
-        return postService.clubBoardList(index);
+        return postService.authedBoardList(index);
     }
 
     @PostMapping("/write")
     @ResponseBody
     public String writePost(@RequestBody PostWriteRequestDto postWriteRequestDto){
-        postService.writeClubPost(postWriteRequestDto);
+        postService.writeAuthedPost(postWriteRequestDto);
         return "uploading post succeed!";
     }
 }

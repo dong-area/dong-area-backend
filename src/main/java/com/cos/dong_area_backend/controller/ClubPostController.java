@@ -2,7 +2,7 @@ package com.cos.dong_area_backend.controller;
 
 import com.cos.dong_area_backend.dto.PostListResponseDto;
 import com.cos.dong_area_backend.dto.PostWriteRequestDto;
-import com.cos.dong_area_backend.service.impl.ClubPostService;
+import com.cos.dong_area_backend.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ClubPostController {
 
-    private final ClubPostService postService;
+    private final PostService postService;
 
     @GetMapping("/list")
     @ResponseBody
