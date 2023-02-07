@@ -7,9 +7,7 @@ import com.cos.dong_area_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/auth")
@@ -35,5 +33,14 @@ public class AuthController {
         return "succeed";
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody LoginDto loginDto){
+        
+    }
 
+    @GetMapping("/test")
+    @ResponseBody
+    public String test(){
+        return "WWW";
+    }
 }
