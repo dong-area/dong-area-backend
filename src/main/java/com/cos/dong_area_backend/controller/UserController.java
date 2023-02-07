@@ -4,7 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.cos.dong_area_backend.config.encoder.PasswordEncoder;
 import com.cos.dong_area_backend.config.jwt.JwtProperties;
+import com.cos.dong_area_backend.dto.ClubInfoResponseDto;
 import com.cos.dong_area_backend.dto.UserInfoResponseDto;
+import com.cos.dong_area_backend.service.ClubInfoService;
 import com.cos.dong_area_backend.service.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,6 +26,7 @@ import java.util.Map;
 @Tag(name = "UserController",description = "사용자 개인을 위한 컨트롤러")
 public class UserController {
     private final UserInfoService userInfoService;
+    private final ClubInfoService clubInfoService;
     @GetMapping("/userinfo")
     @ResponseBody
     @Operation(summary = "유저정보받기")
@@ -32,4 +35,14 @@ public class UserController {
         String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token).getClaim("username").asString();
         return userInfoService.getUserInfo(username);
     }
+
+    @GetMapping("/clubinfo")
+    @ResponseBody
+    public ClubInfoResponseDto clubInfo(@RequestHeader Map<String, String> headers){
+        String token = headers.get("authorization").replace(JwtProperties.TOKEN_PREFIX,"");
+        String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token).getClaim("username").asString();
+
+        return clubInfoService.loadClubInfo(username);
+    }
 }
+
