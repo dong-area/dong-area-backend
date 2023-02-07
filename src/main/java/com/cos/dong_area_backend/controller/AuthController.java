@@ -20,6 +20,7 @@ public class AuthController {
     private UserRepository userRepository;
 
     @PostMapping("/join")
+    @ResponseBody
     public String join(@RequestBody LoginDto loginDto) {
         loginDto.setPassword(passwordEncoder.encode(loginDto.getPassword()));
         User user = User.builder()
@@ -30,13 +31,9 @@ public class AuthController {
                 .stu_id(loginDto.getStu_id())
                 .build();
         userRepository.save(user);
-        return "succeed";
+        return "join succeed!!!";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestBody LoginDto loginDto){
-        
-    }
 
     @GetMapping("/test")
     @ResponseBody
