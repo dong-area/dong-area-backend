@@ -6,6 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -19,4 +22,7 @@ public class Post {
     private String context;
 
     private String writer;
+    @CreatedDate
+    private LocalDateTime createdDate;
+
 }
