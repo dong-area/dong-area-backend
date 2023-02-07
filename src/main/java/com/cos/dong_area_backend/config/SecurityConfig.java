@@ -21,15 +21,22 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private static final String[] PERMIT_URL_ARRAY = {
+            /* swagger v2 */
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            /* swagger v3 */
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+    };
+
     private final UserRepository userRepository;
 
-    @Bean
-    public WebSecurityCustomizer configure(){
-        return (web) -> web.ignoring().requestMatchers(
-                "v3/api-docs"
-                ,"swagger-ui/**"
-        );
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -43,11 +50,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> {
                     authorize
                             .requestMatchers("/authed/**").authenticated()
-                            .requestMatchers(
-                                    "/v3/api-docs",
-                                    "/v3/api-docs/**",
-                                    "/swagger-ui.html",
-                                    "/swagger-ui/**").permitAll()
+                            .requestMatchers(PERMIT_URL_ARRAY).permitAll()
                             .anyRequest().permitAll();
                 })
                .apply(new JwtFilter(userRepository))
