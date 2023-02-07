@@ -11,10 +11,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.firewall.RequestRejectedException;
 
 import java.io.IOException;
 
@@ -29,7 +31,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws IOException, ServletException{
+            //, InternalAuthenticationServiceException {
         if (request.getRequestURI().contains("authed")) {
         String jwtHeader = request.getHeader(JwtProperties.HEADER_STRING);
         System.out.println("jwtHeader: " + jwtHeader);
@@ -46,7 +50,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken)
                             .getClaim("username").asString();
             System.out.println("Jwt: "+username);
-
             if (username != null) {
                 System.out.println("username 정상");
 
@@ -63,8 +66,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-
         chain.doFilter(request,response);
-
     }
 }

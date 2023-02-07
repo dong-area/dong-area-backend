@@ -16,4 +16,5 @@ public class PostWriteRequestDto {
     private String context;
     private String writer;
     private String type;
+    private String image_url;
 }

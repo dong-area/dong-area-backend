@@ -15,22 +15,27 @@ public class PostService {
     private final PostRepository postRepository;
     public PostListResponseDto clubBoardList() {
         PageRequest pageRequest = PageRequest.of(0,10000);
+        System.out.println("club 에서 페이지 불러옴");
         return PostListResponseDto.builder()
                 .postPage(postRepository.findAllByType("club",pageRequest))
                 .build();
     }
     public void writeClubPost(PostWriteRequestDto writeRequest){
+
         Post post = Post.builder()
                 .title(writeRequest.getTitle())
                 .context(writeRequest.getContext())
                 .writer(writeRequest.getWriter())
                 .type("club")
+                .image_url(writeRequest.getImage_url())
                 .build();
         postRepository.save(post);
+        System.out.println("club 에서 페이지 저장함");
     }
 
     public PostListResponseDto projectBoardList() {
         PageRequest pageRequest = PageRequest.of(0,10000);
+        System.out.println("project 에서 페이지 불러옴");
         return PostListResponseDto.builder()
                 .postPage(postRepository.findAllByType("project",pageRequest))
                 .build();
@@ -41,12 +46,15 @@ public class PostService {
                 .context(writeRequest.getContext())
                 .writer(writeRequest.getWriter())
                 .type("project")
+                .image_url(writeRequest.getImage_url())
                 .build();
         postRepository.save(post);
+        System.out.println("project 에서 페이지 저장함");
     }
 
     public PostListResponseDto authedBoardList() {
         PageRequest pageRequest = PageRequest.of(0,10000);
+        System.out.println("내 동아리 에서 페이지 불러옴");
         return PostListResponseDto.builder()
                 .postPage(postRepository.findAllByType("authed",pageRequest))
                 .build();
@@ -57,8 +65,10 @@ public class PostService {
                 .context(writeRequest.getContext())
                 .writer(writeRequest.getWriter())
                 .type("authed")
+                .image_url(writeRequest.getImage_url())
                 .build();
         postRepository.save(post);
+        System.out.println("내 동아리 에서 페이지 저장함");
     }
 
 }
