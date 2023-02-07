@@ -13,12 +13,14 @@ public class LoginDto {
     private String password;
     private String username;
     private String stu_id;
+    private String clubname;
 
     public User toEntity(){
         User user = User.builder()
                 .id(id)
                 .password(password)
                 .username(username)
+                .clubname(clubname)
                 .stu_id(stu_id)
                 .build();
         return user;

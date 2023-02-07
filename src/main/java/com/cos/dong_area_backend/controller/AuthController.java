@@ -29,6 +29,7 @@ public class AuthController {
                 .password(loginDto.getPassword())
                 .username(loginDto.getUsername())
                 .roles("ROLE_USER")
+                .clubname(loginDto.getClubname())
                 .stu_id(loginDto.getStu_id())
                 .build();
         System.out.println("join: "+user);

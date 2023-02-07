@@ -27,6 +27,7 @@ public class User {
     private String username;
 
     private String roles;
+    private String clubname;
 
     private String stu_id;
 
@@ -38,11 +39,12 @@ public class User {
     }
 
     @Builder
-    public User(String id, String password, String username, String roles, String stu_id) {
+    public User(String id, String password, String username, String roles, String clubname,String stu_id) {
         this.id = id;
         this.password = password;
         this.username=username;
         this.roles=roles;
+        this.clubname=clubname;
         this.stu_id=stu_id;
     }
 
