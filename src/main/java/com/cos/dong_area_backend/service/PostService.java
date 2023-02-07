@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 public class PostService {
 
     private final PostRepository postRepository;
-    public PostListResponseDto clubBoardList(int pageIndex) {
-        PageRequest pageRequest = PageRequest.of(pageIndex,10000);
+    public PostListResponseDto clubBoardList() {
+        PageRequest pageRequest = PageRequest.of(0,10000);
         return PostListResponseDto.builder()
                 .postPage(postRepository.findAllByType("club",pageRequest))
                 .build();
@@ -29,8 +29,8 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public PostListResponseDto projectBoardList(int pageIndex) {
-        PageRequest pageRequest = PageRequest.of(pageIndex,10000);
+    public PostListResponseDto projectBoardList() {
+        PageRequest pageRequest = PageRequest.of(0,10000);
         return PostListResponseDto.builder()
                 .postPage(postRepository.findAllByType("project",pageRequest))
                 .build();
@@ -45,8 +45,8 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public PostListResponseDto authedBoardList(int pageIndex) {
-        PageRequest pageRequest = PageRequest.of(pageIndex,10000);
+    public PostListResponseDto authedBoardList() {
+        PageRequest pageRequest = PageRequest.of(0,10000);
         return PostListResponseDto.builder()
                 .postPage(postRepository.findAllByType("authed",pageRequest))
                 .build();
