@@ -35,7 +35,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginDto loginDto){
-        
+        return "test";
     }
 
     @GetMapping("/test")
