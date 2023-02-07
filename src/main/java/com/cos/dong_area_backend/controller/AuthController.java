@@ -5,6 +5,7 @@ import com.cos.dong_area_backend.dto.LoginDto;
 import com.cos.dong_area_backend.entity.User;
 import com.cos.dong_area_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.dialect.SybaseSqlAstTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +31,10 @@ public class AuthController {
                 .roles("ROLE_USER")
                 .stu_id(loginDto.getStu_id())
                 .build();
+        System.out.println("join: "+user);
         userRepository.save(user);
         return "join succeed!!!";
     }
-
 
     @GetMapping("/test")
     @ResponseBody

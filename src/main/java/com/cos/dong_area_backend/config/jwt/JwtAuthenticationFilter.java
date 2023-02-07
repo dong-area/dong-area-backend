@@ -76,9 +76,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("username",principalDetails.getUser().getUsername())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
+        System.out.println(principalDetails);
         System.out.println("successfulAuthentication!!");
 
         response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX+jwtToken);
+        System.out.println("토큰 보냄");
     }
 
     @Override

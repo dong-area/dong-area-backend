@@ -30,38 +30,37 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-
+        if (request.getRequestURI().contains("authed")) {
         String jwtHeader = request.getHeader(JwtProperties.HEADER_STRING);
         System.out.println("jwtHeader: " + jwtHeader);
         System.out.println("Uri: " + request.getRequestURI());
 
-        if (request.getRequestURI().contains("authed")) {
             //Header 존재여부 확인
             if (jwtHeader == null || !jwtHeader.startsWith(JwtProperties.TOKEN_PREFIX)) {
                 chain.doFilter(request, response);
                 return;
             }
-        }
 
-        String jwtToken = request.getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX,"");
-        String username =
-                JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken)
-                        .getClaim("username").asString();
+            String jwtToken = request.getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX, "");
+            String username =
+                    JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken)
+                            .getClaim("username").asString();
 
-        if(username != null){
-            System.out.println("username 정상");
+            if (username != null) {
+                System.out.println("username 정상");
 
-            User userEntity = userRepository.findByUsername(username);
+                User userEntity = userRepository.findByUsername(username);
 
-            PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
+                PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
 
-            System.out.println("PrincipalDetails: " +principalDetails);
-            //Jwt 토큰 서명을 통해 정상적인 서명이면 Authentication 객체 생성
-            Authentication authentication =
-                    new UsernamePasswordAuthenticationToken(principalDetails.getUser(),principalDetails.getPassword(),principalDetails.getAuthorities());
-            System.out.println("Authentication: "+authentication);
+                System.out.println("PrincipalDetails: " + principalDetails);
+                //Jwt 토큰 서명을 통해 정상적인 서명이면 Authentication 객체 생성
+                Authentication authentication =
+                        new UsernamePasswordAuthenticationToken(principalDetails.getUser(), principalDetails.getPassword(), principalDetails.getAuthorities());
+                System.out.println("Authentication: " + authentication);
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
 
         chain.doFilter(request,response);
