@@ -1,12 +1,15 @@
 package com.cos.dong_area_backend.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 @Builder
 public class PostWriteRequestDto {
     private String title;

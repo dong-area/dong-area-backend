@@ -1,11 +1,14 @@
 package com.cos.dong_area_backend.dto;
 
 import com.cos.dong_area_backend.entity.Post;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.domain.Page;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 @Builder
 public class PostListResponseDto {
     private Page<Post> postPage;

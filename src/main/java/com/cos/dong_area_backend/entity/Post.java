@@ -1,19 +1,19 @@
 package com.cos.dong_area_backend.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Data
 @Entity
-public class Post {
+@Data
+@NoArgsConstructor
+public class Post extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
@@ -23,8 +23,6 @@ public class Post {
     private String context;
 
     private String writer;
-    @CreatedDate
-    private LocalDateTime createdDate;
 
     @Builder
     public Post(String title, String context, String writer){
