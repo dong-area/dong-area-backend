@@ -18,16 +18,15 @@ public class ProjectPostController {
     private final PostService postService;
 
     @GetMapping("/list")
-    @ResponseBody
     @Operation(summary = "게시판 불러오기(프로젝트)")
     public PostListResponseDto pageList(){
         return postService.projectBoardList();
     }
 
     @PostMapping("/write")
-    @ResponseBody
     @Operation(summary = "게시판 작성하기(프로젝트)")
     public String writePost(@RequestBody PostWriteRequestDto postWriteRequestDto){
+        System.out.println("project write post");
         postService.writeProjectPost(postWriteRequestDto);
         return "uploading post succeed!";
     }

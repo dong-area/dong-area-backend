@@ -41,6 +41,7 @@ public class PostService {
                 .build();
     }
     public void writeProjectPost(PostWriteRequestDto writeRequest){
+        System.out.println("projectWrite");
         Post post = Post.builder()
                 .title(writeRequest.getTitle())
                 .context(writeRequest.getContext())

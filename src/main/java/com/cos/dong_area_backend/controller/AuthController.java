@@ -46,12 +46,12 @@ public class AuthController {
         userRepository.save(user);
         return "join succeed!!!";
     }
-    @GetMapping("/authed/username")
+    /*@GetMapping("/authed/username")
     @ResponseBody
     @Operation(summary = "유저이름 받기")
     public String username(@RequestHeader Map<String, String> headers){
         String token = headers.get("authorization").replace(JwtProperties.TOKEN_PREFIX,"");
         String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token).getClaim("username").asString();
         return username;
-    }
+    }*/
 }

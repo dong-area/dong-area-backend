@@ -28,6 +28,7 @@ public class ClubPostController {
     @ResponseBody
     @Operation(summary = "게시판 작성하기(동아리 기획)")
     public String writePost(@RequestBody PostWriteRequestDto postWriteRequestDto){
+        System.out.println("write dto club");
         postService.writeClubPost(postWriteRequestDto);
         return "uploading post succeed!";
     }
