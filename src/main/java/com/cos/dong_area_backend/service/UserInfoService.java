@@ -3,6 +3,7 @@ package com.cos.dong_area_backend.service;
 import com.cos.dong_area_backend.config.encoder.PasswordEncoder;
 import com.cos.dong_area_backend.dto.UserInfoResponseDto;
 import com.cos.dong_area_backend.entity.User;
+import com.cos.dong_area_backend.repository.AlarmRepository;
 import com.cos.dong_area_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserInfoService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+
+    private final AlarmRepository alarmRepository;
 
     public UserInfoResponseDto getUserInfo(String username){
        User user =  userRepository.findByUsername(username);
@@ -21,6 +23,7 @@ public class UserInfoService {
                 .username(user.getUsername())
                 .stu_id(user.getStu_id())
                 .clubname(user.getClubname())
+                .alarm(alarmRepository.findAllByTarget(username))
                 .build();
     }
 }
