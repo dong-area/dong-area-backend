@@ -72,4 +72,13 @@ public class PostService {
         System.out.println("내 동아리 에서 페이지 저장함");
     }
 
+    public String deletePost(Long idx,String username){
+        if(username.equals(postRepository.findWriterByIdx(idx))){
+            postRepository.deleteById(idx);
+            return "delete succeed";
+        } else{
+            return "delete failed";
+        }
+    }
+
 }

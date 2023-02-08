@@ -32,4 +32,8 @@ public class AuthedPostController {
         postService.writeAuthedPost(postWriteRequestDto);
         return "uploading post succeed!";
     }
+    @GetMapping("/delete")
+    public String deletePost(@RequestParam("idx")Long idx,@RequestParam("username")String username){
+        return postService.deletePost(idx, username);
+    }
 }
