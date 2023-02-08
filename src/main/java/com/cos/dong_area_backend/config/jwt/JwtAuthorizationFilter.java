@@ -34,7 +34,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException{
             //, InternalAuthenticationServiceException {
-        if (request.getRequestURI().contains("authed")) {
+        if (request.getRequestURI().contains("authed")||request.getRequestURI().contains("collabo")) {
         String jwtHeader = request.getHeader(JwtProperties.HEADER_STRING);
         System.out.println("jwtHeader: " + jwtHeader);
         System.out.println("Uri: " + request.getRequestURI());

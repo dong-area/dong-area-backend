@@ -77,9 +77,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("username",principalDetails.getUser().getUsername())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
+
         System.out.println(principalDetails);
-        System.out.println("successfulAuthentication!!");
         response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX+jwtToken);
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        System.out.println("successfulAuthentication!!");
         /*
         Cookie cookie = new Cookie("Username",null);
         cookie.setMaxAge(0);

@@ -1,12 +1,13 @@
 package com.cos.dong_area_backend.config;
 
 
+import com.cos.dong_area_backend.config.jwt.JwtAuthenticationFilter;
+import com.cos.dong_area_backend.config.jwt.JwtAuthorizationFilter;
 import com.cos.dong_area_backend.filter.JwtFilter;
 import com.cos.dong_area_backend.repository.UserRepository;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -41,7 +46,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
        return http
-               .cors().disable()
+               .cors().configurationSource(configurationSource())
+               .and()
                .csrf().disable()
                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                .and()
@@ -56,5 +62,19 @@ public class SecurityConfig {
                .apply(new JwtFilter(userRepository))
                .and()
                .build();
+    }
+
+    @Bean
+    public CorsConfigurationSource configurationSource() {
+        CorsConfiguration source = new CorsConfiguration();
+        source.addAllowedOriginPattern("*");
+        source.addAllowedHeader("*");
+        source.addAllowedMethod("*");
+        source.addExposedHeader("*");
+
+        UrlBasedCorsConfigurationSource corsConfigurationSource
+                = new UrlBasedCorsConfigurationSource();
+        corsConfigurationSource.registerCorsConfiguration("/**", source);
+        return corsConfigurationSource;
     }
 }
