@@ -56,6 +56,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> {
                     authorize
                             .requestMatchers("/authed/**").authenticated()
+                            .requestMatchers("/collabo/**").hasAnyRole("MANAGER","ADMIN")
+                            .requestMatchers("/admin").hasRole("ADMIN")
                             .requestMatchers(PERMIT_URL_ARRAY).permitAll()
                             .anyRequest().permitAll();
                 })

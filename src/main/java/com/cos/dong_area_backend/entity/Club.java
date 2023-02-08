@@ -22,6 +22,4 @@ public class Club {
     private String manager;
     private String logo_url;
 
-
-
 }
